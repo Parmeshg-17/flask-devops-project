@@ -4,7 +4,7 @@ pipeline {
         stage('Clone repo') {
             steps {
                 // NOTE: Replace this URL with your actual GitHub repository URL
-                git branch: 'main', url: 'https://github.com/YOUR_GITHUB_USERNAME/flask-devops-project.git'
+                git branch: 'main', url: 'https://github.com/Parmeshg-17/flask-devops-project.git'
             }
         }
         stage('Build image') {
@@ -22,3 +22,4 @@ pipeline {
         }
     }
 }
+
