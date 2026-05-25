@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devopsdb
+      MYSQL_USER: parmesh
+      MYSQL_PASSWORD: parmesh123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  flaskapp:
+    build: .
+    container_name: flaskapp
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: parmesh
+      MYSQL_PASSWORD: parmesh123
+      MYSQL_DATABASE: devopsdb
+    depends_on:
+      - mysql
+    restart: always
+
+volumes:
+  mysql_data:
