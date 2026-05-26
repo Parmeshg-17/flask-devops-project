@@ -1,25 +1,25 @@
 pipeline {
     agent any
+
     stages {
-        stage('Clone repo') {
+
+        stage('Clone Repository') {
             steps {
-                // NOTE: Replace this URL with your actual GitHub repository URL
-                git branch: 'main', url: 'https://github.com/Parmeshg-17/flask-devops-project.git'
+                git 'https://github.com/Parmeshg-17/flask-devops-project.git'
             }
         }
-        stage('Build image') {
+
+        stage('Build Docker Containers') {
             steps {
-                sh 'docker build -t flask-app .'
+                sh 'docker-compose down'
+                sh 'docker-compose up --build -d'
             }
         }
-        stage('Deploy with docker compose') {
+
+        stage('Verify Deployment') {
             steps {
-                // Remove existing containers if they are running
-                sh 'docker compose down || true'
-                // Start app, rebuilding the flask image
-                sh 'docker compose up -d --build'
+                sh 'docker ps'
             }
         }
     }
 }
-
