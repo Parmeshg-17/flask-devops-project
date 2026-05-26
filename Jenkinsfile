@@ -1,22 +1,19 @@
 pipeline {
-    agent any
+    agent {
+        label 'built-in'
+    }
 
     stages {
 
-        stage('Clone Repository') {
+        stage('System Check') {
             steps {
-                git 'https://github.com/Parmeshg-17/flask-devops-project.git'
+                sh 'echo Jenkins Pipeline Started'
+                sh 'free -h'
+                sh 'df -h'
             }
         }
 
-        stage('Build Docker Containers') {
-            steps {
-                sh 'docker-compose down'
-                sh 'docker-compose up --build -d'
-            }
-        }
-
-        stage('Verify Deployment') {
+        stage('Docker Check') {
             steps {
                 sh 'docker ps'
             }
