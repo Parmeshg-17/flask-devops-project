@@ -12,19 +12,19 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Pull Latest Code') {
             steps {
-                sh 'docker-compose down || true'
+                sh 'git pull origin main || true'
             }
         }
 
-        stage('Build & Deploy') {
+        stage('Restart Flask Container') {
             steps {
-                sh 'docker-compose up --build -d'
+                sh 'docker restart flaskapp'
             }
         }
 
-        stage('Verify Deployment') {
+        stage('Verify Containers') {
             steps {
                 sh 'docker ps'
             }
