@@ -17,6 +17,7 @@ services:
 
   flaskapp:
     build: .
+    image: flask-app
     container_name: flaskapp
     ports:
       - "5000:5000"
